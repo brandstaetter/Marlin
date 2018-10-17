@@ -35,6 +35,7 @@
     #define RAMPS_D8_PIN    9   // EEF
   #endif
 #elif TEMP_SENSOR_BED
+  #define FAN0_PIN          9
   #define FAN1_PIN          7   // EFB
 #else
   #define FAN2_PIN         44   // EFF
@@ -42,6 +43,8 @@
 
 // D44 - Typical Extruder Fan on Anycubic Delta devices
 #define ORIG_E0_AUTO_FAN_PIN 44
+
+#define FAN_PIN -1
 
 #include "pins_RAMPS.h"
 
