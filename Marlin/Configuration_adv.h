@@ -263,7 +263,8 @@
  */
 #define CASE_LIGHT_ENABLE
 #if ENABLED(CASE_LIGHT_ENABLE)
-  #define CASE_LIGHT_PIN FAN0_PIN             // Override the default pin if needed
+  #define FAN_PIN -1  // Ender-4 has no part cooling fan
+  #define CASE_LIGHT_PIN TRIGORILLA_FAN0_PIN  // Override the default pin if needed
   #define INVERT_CASE_LIGHT false             // Set true if Case Light is ON when pin is LOW
   #define CASE_LIGHT_DEFAULT_ON false         // Set default power-up state on
   #define CASE_LIGHT_DEFAULT_BRIGHTNESS 105   // Set default power-up brightness (0-255, requires PWM pin)
