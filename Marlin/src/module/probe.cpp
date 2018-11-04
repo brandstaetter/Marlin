@@ -370,14 +370,14 @@ FORCE_INLINE void probe_specific_action(const bool deploy) {
     BUZZ(100, 698);
 
     PGM_P const ds_str = deploy ? PSTR(MSG_MANUAL_DEPLOY) : PSTR(MSG_MANUAL_STOW);
-    lcd_setstatusPGM(ds_str);
+    lcd_setalertstatusPGM(ds_str);
     serialprintPGM(ds_str);
     SERIAL_EOL();
 
     KEEPALIVE_STATE(PAUSED_FOR_USER);
     wait_for_user = true;
     while (wait_for_user) idle();
-    lcd_reset_status();
+    lcd_reset_alert_level();
     KEEPALIVE_STATE(IN_HANDLER);
 
   #endif // PAUSE_BEFORE_DEPLOY_STOW
