@@ -34,7 +34,7 @@
 // 0 ... no heated bed
 // 1 ... aluminium heated bed with "BuildTak-like" sticker
 // 2 ... ultrabase heated bed
-#define ANYCUBIC_KOSSEL_ENABLE_BED 1
+#define ANYCUBIC_KOSSEL_ENABLE_BED 2
 
 /**
  * Configuration.h
@@ -492,10 +492,9 @@
     #define DEFAULT_bedKi 72.47
     #define DEFAULT_bedKd 482.59
   #elif ANYCUBIC_KOSSEL_ENABLE_BED == 2
-    // TODO get real PID values for Ultrabase Bed
-    #define DEFAULT_bedKp 374.03
-    #define DEFAULT_bedKi 72.47
-    #define DEFAULT_bedKd 482.59
+    #define DEFAULT_bedKp 426.61
+    #define DEFAULT_bedKi 82.66
+    #define DEFAULT_bedKd 550.43
   #endif
 
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
