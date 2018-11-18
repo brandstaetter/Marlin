@@ -539,11 +539,11 @@
 #ifndef MSG_AUTOTEMP
   #define MSG_AUTOTEMP                        _UxGT("Autotemp")
 #endif
-#ifndef MSG_ON
-  #define MSG_ON                              _UxGT("On ")
+#ifndef MSG_LCD_ON
+  #define MSG_LCD_ON                          _UxGT("On")
 #endif
-#ifndef MSG_OFF
-  #define MSG_OFF                             _UxGT("Off")
+#ifndef MSG_LCD_OFF
+  #define MSG_LCD_OFF                         _UxGT("Off")
 #endif
 #ifndef MSG_PID_P
   #define MSG_PID_P                           _UxGT("PID-P")
@@ -728,8 +728,8 @@
 #ifndef MSG_STOP_PRINT
   #define MSG_STOP_PRINT                      _UxGT("Stop print")
 #endif
-#ifndef MSG_POWER_LOSS_RECOVERY
-  #define MSG_POWER_LOSS_RECOVERY             _UxGT("Power-Loss Recovery")
+#ifndef MSG_OUTAGE_RECOVERY
+  #define MSG_OUTAGE_RECOVERY                 _UxGT("Outage Recovery")
 #endif
 #ifndef MSG_CARD_MENU
   #define MSG_CARD_MENU                       _UxGT("Print from SD")
@@ -1097,63 +1097,77 @@
 //                        ...or up to 2 lines on a 3-line display
 //
 #if LCD_HEIGHT >= 4
-  #ifndef MSG_FILAMENT_CHANGE_INIT_1
-    #define MSG_FILAMENT_CHANGE_INIT_1          _UxGT("Wait for start")
-    #define MSG_FILAMENT_CHANGE_INIT_2          _UxGT("of the filament")
-    #define MSG_FILAMENT_CHANGE_INIT_3          _UxGT("change")
+  #ifndef MSG_ADVANCED_PAUSE_WAITING_1
+    #define MSG_ADVANCED_PAUSE_WAITING_1      _UxGT("Press button")
+    #define MSG_ADVANCED_PAUSE_WAITING_2      _UxGT("to resume print")
   #endif
-  #ifndef MSG_FILAMENT_CHANGE_UNLOAD_1
-    #define MSG_FILAMENT_CHANGE_UNLOAD_1        _UxGT("Wait for")
-    #define MSG_FILAMENT_CHANGE_UNLOAD_2        _UxGT("filament unload")
+  #ifndef MSG_FILAMENT_CHANGE_INIT_1
+    #define MSG_FILAMENT_CHANGE_INIT_1        _UxGT("Wait for")
+    #define MSG_FILAMENT_CHANGE_INIT_2        _UxGT("filament change")
+    #define MSG_FILAMENT_CHANGE_INIT_3        _UxGT("to start")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_INSERT_1
-    #define MSG_FILAMENT_CHANGE_INSERT_1        _UxGT("Insert filament")
-    #define MSG_FILAMENT_CHANGE_INSERT_2        _UxGT("and press button")
-    #define MSG_FILAMENT_CHANGE_INSERT_3        _UxGT("to continue...")
+    #define MSG_FILAMENT_CHANGE_INSERT_1      _UxGT("Insert filament")
+    #define MSG_FILAMENT_CHANGE_INSERT_2      _UxGT("and press button")
+    #define MSG_FILAMENT_CHANGE_INSERT_3      _UxGT("to continue")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_HEAT_1
-    #define MSG_FILAMENT_CHANGE_HEAT_1          _UxGT("Press button to")
-    #define MSG_FILAMENT_CHANGE_HEAT_2          _UxGT("heat nozzle.")
+    #define MSG_FILAMENT_CHANGE_HEAT_1        _UxGT("Press button")
+    #define MSG_FILAMENT_CHANGE_HEAT_2        _UxGT("to heat nozzle")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_HEATING_1
-    #define MSG_FILAMENT_CHANGE_HEATING_1       _UxGT("Heating nozzle")
-    #define MSG_FILAMENT_CHANGE_HEATING_2       _UxGT("Please wait...")
+    #define MSG_FILAMENT_CHANGE_HEATING_1     _UxGT("Nozzle heating")
+    #define MSG_FILAMENT_CHANGE_HEATING_2     _UxGT("Please wait...")
+  #endif
+  #ifndef MSG_FILAMENT_CHANGE_UNLOAD_1
+    #define MSG_FILAMENT_CHANGE_UNLOAD_1      _UxGT("Wait for")
+    #define MSG_FILAMENT_CHANGE_UNLOAD_2      _UxGT("filament unload")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_LOAD_1
-    #define MSG_FILAMENT_CHANGE_LOAD_1          _UxGT("Wait for")
-    #define MSG_FILAMENT_CHANGE_LOAD_2          _UxGT("filament load")
+    #define MSG_FILAMENT_CHANGE_LOAD_1        _UxGT("Wait for")
+    #define MSG_FILAMENT_CHANGE_LOAD_2        _UxGT("filament load")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_PURGE_1
-    #define MSG_FILAMENT_CHANGE_PURGE_1         _UxGT("Wait for")
-    #define MSG_FILAMENT_CHANGE_PURGE_2         _UxGT("filament purge")
+    #define MSG_FILAMENT_CHANGE_PURGE_1       _UxGT("Wait for")
+    #define MSG_FILAMENT_CHANGE_PURGE_2       _UxGT("filament purge")
+  #endif
+  #ifndef MSG_FILAMENT_CHANGE_CONT_PURGE_1
+    #define MSG_FILAMENT_CHANGE_CONT_PURGE_1  _UxGT("Click to finish")
+    #define MSG_FILAMENT_CHANGE_CONT_PURGE_2  _UxGT("filament purge")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_RESUME_1
-    #define MSG_FILAMENT_CHANGE_RESUME_1        _UxGT("Wait for print")
-    #define MSG_FILAMENT_CHANGE_RESUME_2        _UxGT("to resume")
+    #define MSG_FILAMENT_CHANGE_RESUME_1      _UxGT("Wait for print")
+    #define MSG_FILAMENT_CHANGE_RESUME_2      _UxGT("to resume...")
   #endif
 #else // LCD_HEIGHT < 4
-  #ifndef MSG_FILAMENT_CHANGE_INIT_1
-    #define MSG_FILAMENT_CHANGE_INIT_1          _UxGT("Please wait...")
+  #ifndef MSG_ADVANCED_PAUSE_WAITING_1
+    #define MSG_ADVANCED_PAUSE_WAITING_1      _UxGT("Click to continue")
   #endif
-  #ifndef MSG_FILAMENT_CHANGE_UNLOAD_1
-    #define MSG_FILAMENT_CHANGE_UNLOAD_1        _UxGT("Ejecting...")
+  #ifndef MSG_FILAMENT_CHANGE_INIT_1
+    #define MSG_FILAMENT_CHANGE_INIT_1        _UxGT("Please wait...")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_INSERT_1
-    #define MSG_FILAMENT_CHANGE_INSERT_1        _UxGT("Insert and Click")
+    #define MSG_FILAMENT_CHANGE_INSERT_1      _UxGT("Insert and Click")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_HEAT_1
-    #define MSG_FILAMENT_CHANGE_HEAT_1          _UxGT("Click to heat")
+    #define MSG_FILAMENT_CHANGE_HEAT_1        _UxGT("Click to heat")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_HEATING_1
-    #define MSG_FILAMENT_CHANGE_HEATING_1       _UxGT("Heating...")
+    #define MSG_FILAMENT_CHANGE_HEATING_1     _UxGT("Heating...")
+  #endif
+  #ifndef MSG_FILAMENT_CHANGE_UNLOAD_1
+    #define MSG_FILAMENT_CHANGE_UNLOAD_1      _UxGT("Ejecting...")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_LOAD_1
-    #define MSG_FILAMENT_CHANGE_LOAD_1          _UxGT("Loading...")
+    #define MSG_FILAMENT_CHANGE_LOAD_1        _UxGT("Loading...")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_PURGE_1
-    #define MSG_FILAMENT_CHANGE_PURGE_1         _UxGT("Purging...")
+    #define MSG_FILAMENT_CHANGE_PURGE_1       _UxGT("Purging...")
+  #endif
+  #ifndef MSG_FILAMENT_CHANGE_CONT_PURGE_1
+    #define MSG_FILAMENT_CHANGE_CONT_PURGE_1  _UxGT("Click to finish")
   #endif
   #ifndef MSG_FILAMENT_CHANGE_RESUME_1
-    #define MSG_FILAMENT_CHANGE_RESUME_1        _UxGT("Resuming...")
+    #define MSG_FILAMENT_CHANGE_RESUME_1      _UxGT("Resuming...")
   #endif
 #endif // LCD_HEIGHT < 4
