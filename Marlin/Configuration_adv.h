@@ -261,7 +261,7 @@
 /**
  * M355 Case Light on-off / brightness
  */
-#define CASE_LIGHT_ENABLE
+//#define CASE_LIGHT_ENABLE
 #if ENABLED(CASE_LIGHT_ENABLE)
   #define FAN_PIN -1  // Ender-4 has no part cooling fan
   #define CASE_LIGHT_PIN TRIGORILLA_FAN0_PIN  // Override the default pin if needed
