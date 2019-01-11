@@ -34,7 +34,7 @@
   #include "../../../module/tool_change.h"
 #endif
 
-#if ENABLED(ULTIPANEL)
+#if HAS_LCD_MENU
   #include "../../../lcd/ultralcd.h"
 #endif
 
@@ -55,13 +55,15 @@ void GcodeSuite::M701() {
     if (axis_unhomed_error()) park_point.z = 0;
   #endif
 
-  if (get_target_extruder_from_command()) return;
+  const int8_t target_extruder = get_target_extruder_from_command();
+  if (target_extruder < 0) return;
+
 
   // Z axis lift
   if (parser.seenval('Z')) park_point.z = parser.linearval('Z');
 
   // Show initial "wait for load" message
-  #if ENABLED(ULTIPANEL)
+  #if HAS_LCD_MENU
     lcd_advanced_pause_show_message(ADVANCED_PAUSE_MESSAGE_LOAD, ADVANCED_PAUSE_MODE_LOAD_FILAMENT, target_extruder);
   #endif
 
@@ -69,7 +71,7 @@ void GcodeSuite::M701() {
     // Change toolhead if specified
     uint8_t active_extruder_before_filament_change = active_extruder;
     if (active_extruder != target_extruder)
-      tool_change(target_extruder, 0, true);
+      tool_change(target_extruder, 0, false);
   #endif
 
   // Lift Z axis
@@ -94,11 +96,11 @@ void GcodeSuite::M701() {
   #if EXTRUDERS > 1
     // Restore toolhead if it was changed
     if (active_extruder_before_filament_change != active_extruder)
-      tool_change(active_extruder_before_filament_change, 0, true);
+      tool_change(active_extruder_before_filament_change, 0, false);
   #endif
 
   // Show status screen
-  #if ENABLED(ULTIPANEL)
+  #if HAS_LCD_MENU
     lcd_advanced_pause_show_message(ADVANCED_PAUSE_MESSAGE_STATUS);
   #endif
 }
@@ -121,13 +123,14 @@ void GcodeSuite::M702() {
     if (axis_unhomed_error()) park_point.z = 0;
   #endif
 
-  if (get_target_extruder_from_command()) return;
+  const int8_t target_extruder = get_target_extruder_from_command();
+  if (target_extruder < 0) return;
 
   // Z axis lift
   if (parser.seenval('Z')) park_point.z = parser.linearval('Z');
 
   // Show initial "wait for unload" message
-  #if ENABLED(ULTIPANEL)
+  #if HAS_LCD_MENU
     lcd_advanced_pause_show_message(ADVANCED_PAUSE_MESSAGE_UNLOAD, ADVANCED_PAUSE_MODE_UNLOAD_FILAMENT, target_extruder);
   #endif
 
@@ -135,7 +138,7 @@ void GcodeSuite::M702() {
     // Change toolhead if specified
     uint8_t active_extruder_before_filament_change = active_extruder;
     if (active_extruder != target_extruder)
-      tool_change(target_extruder, 0, true);
+      tool_change(target_extruder, 0, false);
   #endif
 
   // Lift Z axis
@@ -146,7 +149,7 @@ void GcodeSuite::M702() {
   #if EXTRUDERS > 1 && ENABLED(FILAMENT_UNLOAD_ALL_EXTRUDERS)
     if (!parser.seenval('T')) {
       HOTEND_LOOP() {
-        if (e != active_extruder) tool_change(e, 0, true);
+        if (e != active_extruder) tool_change(e, 0, false);
         unload_filament(-fc_settings[e].unload_length, true, ADVANCED_PAUSE_MODE_UNLOAD_FILAMENT);
       }
     }
@@ -154,8 +157,8 @@ void GcodeSuite::M702() {
   #endif
   {
     // Unload length
-    const float unload_length = -ABS(parser.seen('U') ? parser.value_axis_units(E_AXIS) :
-                                                        fc_settings[target_extruder].unload_length);
+    const float unload_length = -ABS(parser.seen('U') ? parser.value_axis_units(E_AXIS)
+                                                      : fc_settings[target_extruder].unload_length);
 
     unload_filament(unload_length, true, ADVANCED_PAUSE_MODE_UNLOAD_FILAMENT);
   }
@@ -167,11 +170,11 @@ void GcodeSuite::M702() {
   #if EXTRUDERS > 1
     // Restore toolhead if it was changed
     if (active_extruder_before_filament_change != active_extruder)
-      tool_change(active_extruder_before_filament_change, 0, true);
+      tool_change(active_extruder_before_filament_change, 0, false);
   #endif
 
   // Show status screen
-  #if ENABLED(ULTIPANEL)
+  #if HAS_LCD_MENU
     lcd_advanced_pause_show_message(ADVANCED_PAUSE_MESSAGE_STATUS);
   #endif
 }

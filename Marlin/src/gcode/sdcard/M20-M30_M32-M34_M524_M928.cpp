@@ -28,6 +28,7 @@
 #include "../../sd/cardreader.h"
 #include "../../module/printcounter.h"
 #include "../../module/stepper.h"
+#include "../../lcd/ultralcd.h"
 
 #if ENABLED(POWER_LOSS_RECOVERY)
   #include "../../feature/power_loss_recovery.h"
@@ -49,13 +50,13 @@ void GcodeSuite::M20() {
     const int16_t port = command_queue_port[cmd_queue_index_r];
   #endif
 
-  SERIAL_PROTOCOLLNPGM_P(port, MSG_BEGIN_FILE_LIST);
+  SERIAL_ECHOLNPGM_P(port, MSG_BEGIN_FILE_LIST);
   card.ls(
     #if NUM_SERIAL > 1
       port
     #endif
   );
-  SERIAL_PROTOCOLLNPGM_P(port, MSG_END_FILE_LIST);
+  SERIAL_ECHOLNPGM_P(port, MSG_END_FILE_LIST);
 }
 
 /**
@@ -90,27 +91,24 @@ void GcodeSuite::M24() {
 
   #if ENABLED(POWER_LOSS_RECOVERY)
     if (parser.seenval('S')) card.setIndex(parser.value_long());
+    if (parser.seenval('T')) print_job_timer.resume(parser.value_long());
   #endif
 
   card.startFileprint();
-
-  #if ENABLED(POWER_LOSS_RECOVERY)
-    if (parser.seenval('T'))
-      print_job_timer.resume(parser.value_long());
-    else
-  #endif
-      print_job_timer.start();
+  print_job_timer.start();
+  ui.reset_status();
 }
 
 /**
  * M25: Pause SD Print
  */
 void GcodeSuite::M25() {
-  card.pauseSDPrint();
-  print_job_timer.pause();
-
   #if ENABLED(PARK_HEAD_ON_PAUSE)
-    enqueue_and_echo_commands_P(PSTR("M125")); // Must be enqueued with pauseSDPrint set to be last in the buffer
+    M125();
+  #else
+    card.pauseSDPrint();
+    print_job_timer.pause();
+    ui.reset_status();
   #endif
 }
 
@@ -118,7 +116,7 @@ void GcodeSuite::M25() {
  * M26: Set SD Card file index
  */
 void GcodeSuite::M26() {
-  if (card.cardOK && parser.seenval('S'))
+  if (card.flag.cardOK && parser.seenval('S'))
     card.setIndex(parser.value_long());
 }
 
@@ -157,21 +155,59 @@ void GcodeSuite::M27() {
 /**
  * M28: Start SD Write
  */
-void GcodeSuite::M28() { card.openFile(parser.string_arg, false); }
+void GcodeSuite::M28() {
+
+  #if ENABLED(FAST_FILE_TRANSFER)
+
+    const int16_t port =
+      #if NUM_SERIAL > 1
+        command_queue_port[cmd_queue_index_r]
+      #else
+        0
+      #endif
+    ;
+
+    bool binary_mode = false;
+    char *p = parser.string_arg;
+    if (p[0] == 'B' && NUMERIC(p[1])) {
+      binary_mode = p[1] > '0';
+      p += 2;
+      while (*p == ' ') ++p;
+    }
+
+    // Binary transfer mode
+    if ((card.flag.binary_mode = binary_mode)) {
+      SERIAL_ECHO_START_P(port);
+      SERIAL_ECHO_P(port, " preparing to receive: ");
+      SERIAL_ECHOLN_P(port, p);
+      card.openFile(p, false);
+      #if NUM_SERIAL > 1
+        card.transfer_port = port;
+      #endif
+    }
+    else
+      card.openFile(p, false);
+
+  #else
+
+    card.openFile(parser.string_arg, false);
+
+  #endif
+}
 
 /**
  * M29: Stop SD Write
  * Processed in write to file routine
  */
 void GcodeSuite::M29() {
-  // card.saving = false;
+  // card.flag.saving = false;
 }
 
 /**
  * M30 <filename>: Delete SD Card file
  */
 void GcodeSuite::M30() {
-  if (card.cardOK) {
+  if (card.flag.cardOK) {
     card.closefile();
     card.removeFile(parser.string_arg);
   }
@@ -188,9 +224,9 @@ void GcodeSuite::M30() {
  *
  */
 void GcodeSuite::M32() {
-  if (card.sdprinting) planner.synchronize();
+  if (IS_SD_PRINTING()) planner.synchronize();
 
-  if (card.cardOK) {
+  if (card.flag.cardOK) {
     const bool call_procedure = parser.boolval('P');
 
     card.openFile(parser.string_arg, true, call_procedure);
@@ -248,7 +284,7 @@ void GcodeSuite::M32() {
  * M524: Abort the current SD print job (started with M24)
  */
 void GcodeSuite::M524() {
-  if (IS_SD_PRINTING()) card.abort_sd_printing = true;
+  if (IS_SD_PRINTING()) card.flag.abort_sd_printing = true;
 }
 
 /**

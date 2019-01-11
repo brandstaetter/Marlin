@@ -19,6 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#pragma once
 
 /**
  * Finnish
@@ -27,8 +28,6 @@
  * See also http://marlinfw.org/docs/development/lcd_language.html
  *
  */
-#ifndef LANGUAGE_FI_H
-#define LANGUAGE_FI_H
 
 #define DISPLAY_CHARSET_ISO10646_1
 #define CHARSIZE 2
@@ -80,8 +79,8 @@
 #define MSG_MAX                             LCD_STR_THERMOMETER _UxGT(" Max")
 #define MSG_FACTOR                          LCD_STR_THERMOMETER _UxGT(" Kerr")
 #define MSG_AUTOTEMP                        _UxGT("Autotemp")
-#define MSG_ON                              _UxGT("On ")
-#define MSG_OFF                             _UxGT("Off")
+#define MSG_LCD_ON                          _UxGT("On")
+#define MSG_LCD_OFF                         _UxGT("Off")
 #define MSG_PID_P                           _UxGT("PID-P")
 #define MSG_PID_I                           _UxGT("PID-I")
 #define MSG_PID_D                           _UxGT("PID-D")
@@ -155,7 +154,7 @@
 #define MSG_AUTORETRACT                     _UxGT("AutoVeto.")
 #define MSG_FILAMENTCHANGE                  _UxGT("Change filament")
 #define MSG_INIT_SDCARD                     _UxGT("Init. SD-Card")
-#define MSG_CNG_SDCARD                      _UxGT("Change SD-Card")
+#define MSG_CHANGE_SDCARD                   _UxGT("Change SD-Card")
 #define MSG_ZPROBE_OUT                      _UxGT("Z probe out. bed")
 #define MSG_HOME                            _UxGT("Home")  // Used as MSG_HOME " " MSG_X MSG_Y MSG_Z " " MSG_FIRST
 #define MSG_FIRST                           _UxGT("first")
@@ -169,5 +168,3 @@
 #define MSG_DELTA_CALIBRATE_Y               _UxGT("Kalibroi Y")
 #define MSG_DELTA_CALIBRATE_Z               _UxGT("Kalibroi Z")
 #define MSG_DELTA_CALIBRATE_CENTER          _UxGT("Kalibroi Center")
-
-#endif // LANGUAGE_FI_H

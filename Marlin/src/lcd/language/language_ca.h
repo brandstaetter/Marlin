@@ -19,6 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#pragma once
 
 /**
  * Catalan
@@ -27,8 +28,6 @@
  * See also http://marlinfw.org/docs/development/lcd_language.html
  *
  */
-#ifndef LANGUAGE_CA_H
-#define LANGUAGE_CA_H
 
 #define CHARSIZE 2
 
@@ -92,8 +91,8 @@
 #define MSG_MAX                             LCD_STR_THERMOMETER _UxGT(" Max")
 #define MSG_FACTOR                          LCD_STR_THERMOMETER _UxGT(" Fact")
 #define MSG_AUTOTEMP                        _UxGT("Autotemp")
-#define MSG_ON                              _UxGT("On ")
-#define MSG_OFF                             _UxGT("Off")
+#define MSG_LCD_ON                          _UxGT("On")
+#define MSG_LCD_OFF                         _UxGT("Off")
 #define MSG_PID_P                           _UxGT("PID-P")
 #define MSG_PID_I                           _UxGT("PID-I")
 #define MSG_PID_D                           _UxGT("PID-D")
@@ -168,7 +167,7 @@
 #define MSG_AUTORETRACT                     _UxGT("Auto retraccio")
 #define MSG_FILAMENTCHANGE                  _UxGT("Canvia filament")
 #define MSG_INIT_SDCARD                     _UxGT("Inicialitza SD")
-#define MSG_CNG_SDCARD                      _UxGT("Canvia SD")
+#define MSG_CHANGE_SDCARD                   _UxGT("Canvia SD")
 #define MSG_ZPROBE_OUT                      _UxGT("Sonda Z fora")
 #define MSG_BLTOUCH_RESET                   _UxGT("Reinicia BLTouch")
 #define MSG_HOME                            _UxGT("Home")  // Used as MSG_HOME " " MSG_X MSG_Y MSG_Z " " MSG_FIRST
@@ -261,5 +260,3 @@
   #define MSG_FILAMENT_CHANGE_LOAD_1          _UxGT("Carregant...")
   #define MSG_FILAMENT_CHANGE_RESUME_1        _UxGT("Reprenent...")
 #endif // LCD_HEIGHT < 4
-
-#endif // LANGUAGE_CA_H

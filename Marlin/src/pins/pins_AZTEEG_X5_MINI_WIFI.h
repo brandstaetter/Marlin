@@ -26,13 +26,11 @@
  */
 
 #ifndef TARGET_LPC1768
-  #error "Oops!  Make sure you have the LPC1768 environment selected in your IDE."
+  #error "Oops! Make sure you have the LPC1768 environment selected in your IDE."
 #endif
 
-#ifndef BOARD_NAME
-  #define BOARD_NAME "Azteeg X5 MINI WIFI"
-  #define DEFAULT_WEBSITE_URL "http://www.panucatt.com/azteeg_X5_mini_reprap_3d_printer_controller_p/ax5mini.htm"
-#endif
+#define BOARD_NAME          "Azteeg X5 MINI WIFI"
+#define DEFAULT_WEBSITE_URL "http://www.panucatt.com/azteeg_X5_mini_reprap_3d_printer_controller_p/ax5mini.htm"
 
 //
 // LED
@@ -187,14 +185,15 @@
                               // is powered on to enable SD access.
 
 #if ENABLED(LPC_SD_LCD)
+
   #define SCK_PIN            P0_15
   #define MISO_PIN           P0_17
   #define MOSI_PIN           P0_18
   #define SS_PIN             P1_23   // Chip select for SD card used by Marlin
   #define ONBOARD_SD_CS      P0_06   // Chip select for "System" SD card
-#endif
 
-#if ENABLED(LPC_SD_ONBOARD)
+#elif ENABLED(LPC_SD_ONBOARD)
+
   #if ENABLED(USB_SD_ONBOARD)
     // When sharing the SD card with a PC we want the menu options to
     // mount/unmount the card and refresh it. So we disable card detect.
@@ -206,4 +205,5 @@
   #define MOSI_PIN           P0_09
   #define SS_PIN             P0_06   // Chip select for SD card used by Marlin
   #define ONBOARD_SD_CS      P0_06   // Chip select for "System" SD card
+
 #endif

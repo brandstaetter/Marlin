@@ -56,7 +56,9 @@
 #define NANOSECONDS_PER_CYCLE (1000000000.0 / F_CPU)
 
 // Remove compiler warning on an unused variable
-#define UNUSED(x) ((void)(x))
+#if !defined(ARDUINO_ARCH_STM32) || defined(STM32GENERIC)
+  #define UNUSED(x) ((void)(x))
+#endif
 
 // Macros to make a string from a macro
 #define STRINGIFY_(M) #M
@@ -196,7 +198,7 @@
 #define MMM_TO_MMS(MM_M) ((MM_M)/60.0f)
 #define MMS_TO_MMM(MM_S) ((MM_S)*60.0f)
 
-#define NOOP do{} while(0)
+#define NOOP (void(0))
 
 #define CEILING(x,y) (((x) + (y) - 1) / (y))
 
