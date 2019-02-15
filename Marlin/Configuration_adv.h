@@ -77,9 +77,9 @@
   #define THERMAL_PROTECTION_PERIOD 40        // Seconds
   #define THERMAL_PROTECTION_HYSTERESIS 4     // Degrees Celsius
 
-  //#define ADAPTIVE_FAN_SLOWING              // Slow part cooling fan if temperature drops
+  #define ADAPTIVE_FAN_SLOWING              // Slow part cooling fan if temperature drops
   #if ENABLED(ADAPTIVE_FAN_SLOWING) && ENABLED(PIDTEMP)
-    //#define NO_FAN_SLOWING_IN_PID_TUNING    // Don't slow fan speed during M303
+    #define NO_FAN_SLOWING_IN_PID_TUNING    // Don't slow fan speed during M303
   #endif
 
   /**
@@ -267,7 +267,7 @@
  */
 //#define CASE_LIGHT_ENABLE
 #if ENABLED(CASE_LIGHT_ENABLE)
-  #define FAN_PIN -1  // Ender-4 has no part cooling fan
+  #define FAN_PIN -1                          // Ender-4 has no part cooling fan in stock config
   #define CASE_LIGHT_PIN TRIGORILLA_FAN0_PIN  // Override the default pin if needed
   #define INVERT_CASE_LIGHT false             // Set true if Case Light is ON when pin is LOW
   #define CASE_LIGHT_DEFAULT_ON false         // Set default power-up state on
@@ -663,7 +663,7 @@
 #endif
 
 // Include a page of printer information in the LCD Main Menu
-//#define LCD_INFO_MENU
+#define LCD_INFO_MENU
 
 // Scroll a longer status message into view
 #define STATUS_MESSAGE_SCROLLING
@@ -777,7 +777,7 @@
   #endif
 
   // This allows hosts to request long names for files and folders with M33
-  //#define LONG_FILENAME_HOST_SUPPORT
+  #define LONG_FILENAME_HOST_SUPPORT
 
   // Enable this option to scroll long filenames in the SD card menu
   #define SCROLL_LONG_FILENAMES
@@ -836,7 +836,7 @@
   #endif
 
   // Add an optimized binary file transfer mode, initiated with 'M28 B1'
-  //#define FAST_FILE_TRANSFER
+  #define FAST_FILE_TRANSFER
 
 #endif // SDSUPPORT
 
@@ -909,7 +909,7 @@
   //#define STATUS_ALT_BED_BITMAP     // Use the alternative bed bitmap
   //#define STATUS_ALT_FAN_BITMAP     // Use the alternative fan bitmap
   //#define STATUS_FAN_FRAMES 3       // :[0,1,2,3,4] Number of fan animation frames
-  //#define STATUS_HEAT_PERCENT       // Show heating in a progress bar
+  #define STATUS_HEAT_PERCENT       // Show heating in a progress bar
 
 #endif // HAS_GRAPHICAL_LCD
 
@@ -947,7 +947,7 @@
                                             // Note: Extra time may be added to mitigate controller latency.
   #endif
 
-  //#define MOVE_Z_WHEN_IDLE                // Jump to the move Z menu on doubleclick when printer is idle.
+  #define MOVE_Z_WHEN_IDLE                // Jump to the move Z menu on doubleclick when printer is idle.
   #if ENABLED(MOVE_Z_WHEN_IDLE)
     #define MOVE_Z_IDLE_MULTIPLICATOR 1     // Multiply 1mm by this factor for the move step size.
   #endif
@@ -1252,12 +1252,12 @@
                                                   // 0 to disable start loading and skip to fast load only
   #define FILAMENT_CHANGE_FAST_LOAD_FEEDRATE  35  // (mm/s) Load filament feedrate. This can be pretty fast.
   #define FILAMENT_CHANGE_FAST_LOAD_ACCEL     25  // (mm/s^2) Lower acceleration may allow a faster feedrate.
-  #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   630  // (mm) Load length of filament, from extruder gear to nozzle.
+  #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   625  // (mm) Load length of filament, from extruder gear to nozzle.
                                                   //   For Bowden, the full length of the tube and nozzle.
                                                   //   For direct drive, the full length of the nozzle.
   #define ADVANCED_PAUSE_CONTINUOUS_PURGE         // Purge continuously up to the purge length until interrupted.
   #define ADVANCED_PAUSE_PURGE_FEEDRATE        3  // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
-  #define ADVANCED_PAUSE_PURGE_LENGTH          0  // (mm) Length to extrude after loading.
+  #define ADVANCED_PAUSE_PURGE_LENGTH         30  // (mm) Length to extrude after loading.
                                                   //   Set to 0 for manual extrusion.
                                                   //   Filament can be extruded repeatedly from the Filament Change menu
                                                   //   until extrusion is consistent, and to purge old filament.
@@ -2241,12 +2241,12 @@
 #if ENABLED(PRINTCOUNTER)
   #define SERVICE_WARNING_BUZZES  3
   // Activate up to 3 service interval watchdogs
-  //#define SERVICE_NAME_1      "Service S"
-  //#define SERVICE_INTERVAL_1  100 // print hours
-  //#define SERVICE_NAME_2      "Service L"
-  //#define SERVICE_INTERVAL_2  200 // print hours
-  //#define SERVICE_NAME_3      "Service 3"
-  //#define SERVICE_INTERVAL_3    1 // print hours
+  #define SERVICE_NAME_1      "Service S"
+  #define SERVICE_INTERVAL_1  100 // print hours
+  #define SERVICE_NAME_2      "Service L"
+  #define SERVICE_INTERVAL_2  200 // print hours
+  #define SERVICE_NAME_3      "Full Service"
+  #define SERVICE_INTERVAL_3  500 // print hours
 #endif
 
 // @section develop
